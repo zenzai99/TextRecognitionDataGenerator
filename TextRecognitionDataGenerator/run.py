@@ -13,10 +13,15 @@ from string_generator import (
 from data_generator import FakeTextDataGenerator
 from multiprocessing import Pool
 
-def valid_range(s):
-    if len(s.split(',')) > 2:
-        raise argparse.ArgumentError("The given range is invalid, please use ?,? format.")
-    return tuple([int(i) for i in s.split(',')])
+def check_margins(value):
+    margins = []
+    for m in value.split(','):
+        if int(m) < 0:
+            raise argparse.ArgumentTypeError("{} are not valid margins, use something like 5,5,5,5".format(value))
+        margins.append(int(m))
+    if len(margins) != 4:
+        raise argparse.ArgumentTypeError("The number of specified margins is wrong, please specify 4 margins.")
+    return margins
 
 def parse_arguments():
     """
@@ -236,6 +241,14 @@ def parse_arguments():
         help="Define the width of the spaces between words. 2.0 means twice the normal space width",
         default=1.0
     )
+    parser.add_argument(
+        "-m",
+        "--margins",
+        type=check_margins,
+        nargs="?",
+        help="Define the margins around the text, should be 4 numbers separated by commas 5,5,5,5",
+        default=(5,5,5,5)
+    )
 
     return parser.parse_args()
 
@@ -322,7 +335,8 @@ def main():
             [args.alignment] * string_count,
             [args.text_color] * string_count,
             [args.orientation] * string_count,
-            [args.space_width] * string_count
+            [args.space_width] * string_count,
+            [args.margins] * string_count
         )
     ), total=args.count):
         pass
