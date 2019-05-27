@@ -281,6 +281,8 @@ def load_fonts(lang):
 
     if lang == 'cn':
         return [os.path.join('fonts/cn', font) for font in os.listdir('fonts/cn')]
+    elif lang == 'th':
+        return [os.path.join('fonts/tha', font) for font in os.listdir('fonts/tha')]
     else:
         return [os.path.join('fonts/latin', font) for font in os.listdir('fonts/latin')]
 
@@ -363,7 +365,7 @@ def main():
 
     if args.name_format == 2:
         # Create file with filename-to-label connections
-        with open(os.path.join(args.output_dir, "labels.txt"), 'w', encoding="utf8") as f:
+        with open(os.path.join(args.output_dir, "labels.txt"), 'w', encoding="utf-8") as f:
             for i in range(string_count):
                 file_name = str(i) + "." + args.extension
                 f.write("{} {}\n".format(file_name, strings[i]))
