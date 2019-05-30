@@ -78,4 +78,6 @@ def random(image, vertical=False, horizontal=False):
 
     max_offset = int(image.height ** 0.4)
 
-    return _apply_func_distorsion(image, vertical, horizontal, max_offset, (lambda x: random.randint(0, max_offset)))
+    from random import randint
+
+    return _apply_func_distorsion(image, vertical, horizontal, max_offset, (lambda x: randint(0, max_offset)))
