@@ -2,16 +2,15 @@ import random
 
 from PIL import Image, ImageColor, ImageFont, ImageDraw, ImageFilter
 
-def generate(text, font, text_color, font_size, orientation, space_width, fit,bg_color):
-    bg_color = (73, 109, 137,1)
+def generate(text, font, text_color, font_size, orientation, space_width, fit):
     if orientation == 0:
-        return _generate_horizontal_text(text, font, text_color, font_size, space_width, fit,bg_color)
+        return _generate_horizontal_text(text, font, text_color, font_size, space_width, fit)
     elif orientation == 1:
-        return _generate_vertical_text(text, font, text_color, font_size, space_width, fit,bg_color)
+        return _generate_vertical_text(text, font, text_color, font_size, space_width, fit)
     else:
         raise ValueError("Unknown orientation " + str(orientation))
 
-def _generate_horizontal_text(text, font, text_color, font_size, space_width, fit,bg_color):
+def _generate_horizontal_text(text, font, text_color, font_size, space_width, fit):
     image_font = ImageFont.truetype(font=font, size=font_size)
     words = text.split(' ')
     space_width = image_font.getsize(' ')[0] * space_width
@@ -21,7 +20,7 @@ def _generate_horizontal_text(text, font, text_color, font_size, space_width, fi
     text_height = max([image_font.getsize(w)[1] for w in words])
     
 #     print(bg_color)
-    txt_img = Image.new('RGBA', (text_width, text_height), color =(bg_color[0], bg_color[1], bg_color[2], bg_color[3]))
+    txt_img = Image.new('RGBA', (text_width, text_height), (0,0,0,0))
 
     txt_draw = ImageDraw.Draw(txt_img)
     txt_img.save('png_horizontal.png')
@@ -43,7 +42,7 @@ def _generate_horizontal_text(text, font, text_color, font_size, space_width, fi
     else:
         return txt_img
 
-def _generate_vertical_text(text, font, text_color, font_size, space_width, fit,bg_color):
+def _generate_vertical_text(text, font, text_color, font_size, space_width, fit):
     image_font = ImageFont.truetype(font=font, size=font_size)
     
     space_height = int(image_font.getsize(' ')[1] * space_width)
@@ -53,7 +52,7 @@ def _generate_vertical_text(text, font, text_color, font_size, space_width, fit,
     text_height = sum(char_heights)
     
 #     print(bg_color)
-    txt_img = Image.new('RGBA', (text_width, text_height), color = (bg_color[0], bg_color[1], bg_color[2], bg_color[3]))
+    txt_img = Image.new('RGBA', (text_width, text_height), (0,0,0,0))
     
     txt_draw = ImageDraw.Draw(txt_img)
     txt_img.save('png_vertical.png')

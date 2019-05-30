@@ -28,7 +28,7 @@ class FakeTextDataGenerator(object):
         margin_top, margin_left, margin_bottom, margin_right = margins
         horizontal_margin = margin_left + margin_right
         vertical_margin = margin_top + margin_bottom
-
+        
         ##########################
         # Create picture of text #
         ##########################
@@ -37,7 +37,7 @@ class FakeTextDataGenerator(object):
                 raise ValueError("Vertical handwritten text is unavailable")
             image = handwritten_text_generator.generate(text, text_color, fit)
         else:
-            image = computer_text_generator.generate(text, font, text_color, size, orientation, space_width, fit,bg_color)
+            image = computer_text_generator.generate(text, font, text_color, size, orientation, space_width, fit)
 
         random_angle = random.randint(0-skewing_angle, skewing_angle)
 
@@ -60,7 +60,7 @@ class FakeTextDataGenerator(object):
                 vertical=(distorsion_orientation == 0 or distorsion_orientation == 2),
                 horizontal=(distorsion_orientation == 1 or distorsion_orientation == 2)
             )
-        else:
+        elif distorsion_type == 3:
             distorted_img = distorsion_generator.random(
                 rotated_img,
                 vertical=(distorsion_orientation == 0 or distorsion_orientation == 2),
@@ -85,7 +85,7 @@ class FakeTextDataGenerator(object):
             background_height = new_height + vertical_margin
         else:
             raise ValueError("Invalid orientation")
-
+            
         #############################
         # Generate background image #
         #############################
@@ -126,11 +126,11 @@ class FakeTextDataGenerator(object):
         #####################################
         # Generate name for resulting image #
         #####################################
-        if name_format == 0 or name_format == 3:
+        if name_format == 0:
             image_name = '{}_{}.{}'.format(text, str(index), extension)
         elif name_format == 1:
             image_name = '{}_{}.{}'.format(str(index), text, extension)
-        elif name_format == 2:
+        elif name_format == 2 or name_format == 3:
             image_name = '{}.{}'.format(str(index),extension)
         else:
             print('{} is not a valid name format. Using default.'.format(name_format))

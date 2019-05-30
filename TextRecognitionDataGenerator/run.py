@@ -49,8 +49,8 @@ def parse_arguments():
         "--language",
         type=str,
         nargs="?",
-        help="The language to use, should be fr (French), en (English), es (Spanish), de (German), or cn (Chinese).",
-        default="en"
+        help="The language to use, should be fr (French), en (English), es (Spanish), de (German), or cn (Chinese), or th (Thai).",
+        default="th"
     )
     parser.add_argument(
         "-c",
@@ -103,14 +103,14 @@ def parse_arguments():
         help="Define if the produced string will have variable word count (with --length being the maximum)",
         default=False
     )
+    # height
     parser.add_argument(
         "-f",
         "--format",
         type=int,
         nargs="?",
         help="Define the height of the produced images if horizontal, else the width",
-#         default=540,
-        default=50,
+        default=30,
     )
     parser.add_argument(
         "-t",
@@ -170,7 +170,7 @@ def parse_arguments():
         "--background",
         type=int,
         nargs="?",
-        help="Define what kind of background to use. 0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4: full color",
+        help="Define what kind of background to use. 0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4:Color",
         default=4,
     )
     parser.add_argument(
@@ -202,6 +202,7 @@ def parse_arguments():
         help="Define the distorsion's orientation. Only used if -d is specified. 0: Vertical (Up and down), 1: Horizontal (Left and Right), 2: Both",
         default=2
     )
+    # width
     parser.add_argument(
         "-wd",
         "--width",
@@ -247,8 +248,8 @@ def parse_arguments():
         "--margins",
         type=margins,
         nargs="?",
-        help="Define the margins around the text when rendered. In pixels",
-        default=(20, 20,20 , 20)
+        help="Define the margins around the text when rendered. In pixels, (margin_top, margin_left, margin_bottom, margin_right)",
+        default=(5, 5, 5 , 5)
     )
     parser.add_argument(
         "-fi",
@@ -263,14 +264,6 @@ def parse_arguments():
         type=str,
         nargs="?",
         help="Define font to be used"
-    )
-    parser.add_argument(
-        "-bc",
-        "--bg_color",
-        type=tuple,
-        nargs="?",
-        help="Define the Background's color, should be either a RGBA color or a range in the ?,? format.",
-        default= (random.randint(0,255),random.randint(0,255),random.randint(0,255),random.randint(0,1))
     )
     
     return parser.parse_args()
@@ -298,10 +291,19 @@ def load_fonts(lang):
     else:
         return [os.path.join('fonts/latin', font) for font in os.listdir('fonts/latin')]
 
+# Random background color
+def RandomBackgroundColor(count: int)-> list:
+    colorList = []
+    for i in range(count):
+        color = (random.randint(0,255),random.randint(0,255),random.randint(0,255),1)
+        colorList.append(color)
+        
+    return colorList
+             
+
 # Create report .csv
 def CreateReport(dataframe:list):
-    dataframe =[]
-    df = pd.DataFrame(data,columns=['Font name','Size','Font color','Background','Preprocess'])
+    df = pd.DataFrame(dataframe,columns=['File name','Font name','Size','Font color','Background','Preprocess'])
     df.to_csv('out/Report.csv',index = False)
     
 def main():
@@ -336,7 +338,7 @@ def main():
 
     # Creating synthetic sentences (or word)
     strings = []
-
+    
     if args.use_wikipedia:
         strings = create_strings_from_wikipedia(args.length, args.count, args.language)
     elif args.input_file != '':
@@ -350,8 +352,11 @@ def main():
     else:
         strings = create_strings_from_dict(args.length, args.random, args.count, lang_dict)
 
-    print(strings)
+#     print(strings)
     string_count = len(strings)
+    
+    # Color BG
+    ColorBG =  RandomBackgroundColor(args.count)
 
     p = Pool(args.thread_count)
     for _ in tqdm(p.imap_unordered(
@@ -379,7 +384,7 @@ def main():
             [args.space_width] * string_count,
             [args.margins] * string_count,
             [args.fit] * string_count,
-            [args.bg_color] * string_count
+            [e for e in ColorBG]
         )
     ), total=args.count):
         pass
@@ -394,7 +399,9 @@ def main():
                 print(strings[i])
                 
     elif args.name_format == 3:
-        CreateReport()
+        dataframe = []
+        for i in range(args.count)
+        CreateReport(dataframe)
         
 
 if __name__ == '__main__':
