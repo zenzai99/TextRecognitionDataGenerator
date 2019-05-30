@@ -3,6 +3,9 @@ import os, errno
 import random
 import string
 import sys
+import random
+import shutil
+import pandas as pd
 
 from tqdm import tqdm
 from string_generator import (
@@ -55,7 +58,7 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="The number of images to be created.",
-        default=1000
+        default=10
     )
     parser.add_argument(
         "-rs",
@@ -106,7 +109,8 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="Define the height of the produced images if horizontal, else the width",
-        default=32,
+#         default=540,
+        default=50,
     )
     parser.add_argument(
         "-t",
@@ -114,7 +118,7 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="Define the number of thread to use for image generation",
-        default=1,
+        default=2,
     )
     parser.add_argument(
         "-e",
@@ -166,8 +170,8 @@ def parse_arguments():
         "--background",
         type=int,
         nargs="?",
-        help="Define what kind of background to use. 0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures",
-        default=0,
+        help="Define what kind of background to use. 0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4: full color",
+        default=4,
     )
     parser.add_argument(
         "-hw",
@@ -179,8 +183,8 @@ def parse_arguments():
         "-na",
         "--name_format",
         type=int,
-        help="Define how the produced files will be named. 0: [TEXT]_[ID].[EXT], 1: [ID]_[TEXT].[EXT] 2: [ID].[EXT] + one file labels.txt containing id-to-label mappings",
-        default=0,
+        help="Define how the produced files will be named. 0: [TEXT]_[ID].[EXT], 1: [ID]_[TEXT].[EXT] 2: [ID].[EXT] + one file labels.txt containing id-to-label mappings 3: [ID].[EXT] and csv report",
+        default=3,
     )
     parser.add_argument(
         "-d",
@@ -196,7 +200,7 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="Define the distorsion's orientation. Only used if -d is specified. 0: Vertical (Up and down), 1: Horizontal (Left and Right), 2: Both",
-        default=0
+        default=2
     )
     parser.add_argument(
         "-wd",
@@ -204,7 +208,7 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="Define the width of the resulting image. If not set it will be the width of the text + 10. If the width of the generated text is bigger that number will be used",
-        default=-1
+        default=100
     )
     parser.add_argument(
         "-al",
@@ -244,7 +248,7 @@ def parse_arguments():
         type=margins,
         nargs="?",
         help="Define the margins around the text when rendered. In pixels",
-        default=(5, 5, 5, 5)
+        default=(20, 20,20 , 20)
     )
     parser.add_argument(
         "-fi",
@@ -260,9 +264,17 @@ def parse_arguments():
         nargs="?",
         help="Define font to be used"
     )
-
-
+    parser.add_argument(
+        "-bc",
+        "--bg_color",
+        type=tuple,
+        nargs="?",
+        help="Define the Background's color, should be either a RGBA color or a range in the ?,? format.",
+        default= (random.randint(0,255),random.randint(0,255),random.randint(0,255),random.randint(0,1))
+    )
+    
     return parser.parse_args()
+
 
 def load_dict(lang):
     """
@@ -286,6 +298,12 @@ def load_fonts(lang):
     else:
         return [os.path.join('fonts/latin', font) for font in os.listdir('fonts/latin')]
 
+# Create report .csv
+def CreateReport():
+    dataframe =[]
+    df = pd.DataFrame(data,columns=['Font name','Size','Font color','Background','Preprocess'])
+    df.to_csv('out/Report.csv',index = False)
+    
 def main():
     """
         Description: Main function
@@ -293,10 +311,13 @@ def main():
 
     # Argument parsing
     args = parse_arguments()
-
     # Create the directory if it does not exist.
     try:
-        os.makedirs(args.output_dir)
+        if os.path.exists(args.output_dir) == True:
+            shutil.rmtree(args.output_dir)
+            os.makedirs(args.output_dir)
+        else:
+            os.makedirs(args.output_dir)
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
@@ -329,7 +350,7 @@ def main():
     else:
         strings = create_strings_from_dict(args.length, args.random, args.count, lang_dict)
 
-
+    print(strings)
     string_count = len(strings)
 
     p = Pool(args.thread_count)
@@ -357,7 +378,8 @@ def main():
             [args.orientation] * string_count,
             [args.space_width] * string_count,
             [args.margins] * string_count,
-            [args.fit] * string_count
+            [args.fit] * string_count,
+            [args.bg_color] * string_count
         )
     ), total=args.count):
         pass
@@ -369,6 +391,11 @@ def main():
             for i in range(string_count):
                 file_name = str(i) + "." + args.extension
                 f.write("{} {}\n".format(file_name, strings[i]))
+                print(strings[i])
+                
+    elif args.name_format == 3:
+        CreateReport():
+        
 
 if __name__ == '__main__':
     main()

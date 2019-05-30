@@ -22,7 +22,7 @@ class FakeTextDataGenerator(object):
         cls.generate(*t)
 
     @classmethod
-    def generate(cls, index, text, font, out_dir, size, extension, skewing_angle, random_skew, blur, random_blur, background_type, distorsion_type, distorsion_orientation, is_handwritten, name_format, width, alignment, text_color, orientation, space_width, margins, fit):
+    def generate(cls, index, text, font, out_dir, size, extension, skewing_angle, random_skew, blur, random_blur, background_type, distorsion_type, distorsion_orientation, is_handwritten, name_format, width, alignment, text_color, orientation, space_width, margins, fit,bg_color):
         image = None
 
         margin_top, margin_left, margin_bottom, margin_right = margins
@@ -37,7 +37,7 @@ class FakeTextDataGenerator(object):
                 raise ValueError("Vertical handwritten text is unavailable")
             image = handwritten_text_generator.generate(text, text_color, fit)
         else:
-            image = computer_text_generator.generate(text, font, text_color, size, orientation, space_width, fit)
+            image = computer_text_generator.generate(text, font, text_color, size, orientation, space_width, fit,bg_color)
 
         random_angle = random.randint(0-skewing_angle, skewing_angle)
 
@@ -95,8 +95,10 @@ class FakeTextDataGenerator(object):
             background = background_generator.plain_white(background_height, background_width)
         elif background_type == 2:
             background = background_generator.quasicrystal(background_height, background_width)
-        else:
+        elif background_type == 3:
             background = background_generator.picture(background_height, background_width)
+        elif background_type == 4:
+            background = background_generator.full_color(background_height, background_width,bg_color)
 
         #############################
         # Place text with alignment #
@@ -124,7 +126,7 @@ class FakeTextDataGenerator(object):
         #####################################
         # Generate name for resulting image #
         #####################################
-        if name_format == 0:
+        if name_format == 0 or name_format == 3:
             image_name = '{}_{}.{}'.format(text, str(index), extension)
         elif name_format == 1:
             image_name = '{}_{}.{}'.format(str(index), text, extension)
