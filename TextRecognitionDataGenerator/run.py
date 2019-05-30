@@ -299,7 +299,7 @@ def load_fonts(lang):
         return [os.path.join('fonts/latin', font) for font in os.listdir('fonts/latin')]
 
 # Create report .csv
-def CreateReport():
+def CreateReport(dataframe:list):
     dataframe =[]
     df = pd.DataFrame(data,columns=['Font name','Size','Font color','Background','Preprocess'])
     df.to_csv('out/Report.csv',index = False)
@@ -394,7 +394,7 @@ def main():
                 print(strings[i])
                 
     elif args.name_format == 3:
-        CreateReport():
+        CreateReport()
         
 
 if __name__ == '__main__':
