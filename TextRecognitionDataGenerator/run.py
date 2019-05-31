@@ -49,8 +49,8 @@ def parse_arguments():
         "--language",
         type=str,
         nargs="?",
-        help="The language to use, should be fr (French), en (English), es (Spanish), de (German), or cn (Chinese), or th (Thai).",
-        default="th"
+        help="The language to use, should be fr (French), en (English), es (Spanish), de (German), or cn (Chinese).",
+        default="en"
     )
     parser.add_argument(
         "-c",
@@ -58,7 +58,7 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="The number of images to be created.",
-        default=10
+        default=1000
     )
     parser.add_argument(
         "-rs",
@@ -103,14 +103,13 @@ def parse_arguments():
         help="Define if the produced string will have variable word count (with --length being the maximum)",
         default=False
     )
-    # height
     parser.add_argument(
         "-f",
         "--format",
         type=int,
         nargs="?",
         help="Define the height of the produced images if horizontal, else the width",
-        default=30,
+        default=32,
     )
     parser.add_argument(
         "-t",
@@ -118,7 +117,7 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="Define the number of thread to use for image generation",
-        default=2,
+        default=1,
     )
     parser.add_argument(
         "-e",
@@ -170,8 +169,8 @@ def parse_arguments():
         "--background",
         type=int,
         nargs="?",
-        help="Define what kind of background to use. 0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4:Color",
-        default=4,
+        help="Define what kind of background to use. 0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4:Random color 5: random 1 to 4",
+        default=0,
     )
     parser.add_argument(
         "-hw",
@@ -183,8 +182,8 @@ def parse_arguments():
         "-na",
         "--name_format",
         type=int,
-        help="Define how the produced files will be named. 0: [TEXT]_[ID].[EXT], 1: [ID]_[TEXT].[EXT] 2: [ID].[EXT] + one file labels.txt containing id-to-label mappings 3: [ID].[EXT] and csv report",
-        default=3,
+        help="Define how the produced files will be named. 0: [TEXT]_[ID].[EXT], 1: [ID]_[TEXT].[EXT] 2: [ID].[EXT] + one file labels.txt containing id-to-label mappings, 3: [ID].[EXT] + Report file .csv",
+        default=0,
     )
     parser.add_argument(
         "-d",
@@ -200,16 +199,15 @@ def parse_arguments():
         type=int,
         nargs="?",
         help="Define the distorsion's orientation. Only used if -d is specified. 0: Vertical (Up and down), 1: Horizontal (Left and Right), 2: Both",
-        default=2
+        default=0
     )
-    # width
     parser.add_argument(
         "-wd",
         "--width",
         type=int,
         nargs="?",
         help="Define the width of the resulting image. If not set it will be the width of the text + 10. If the width of the generated text is bigger that number will be used",
-        default=100
+        default=-1
     )
     parser.add_argument(
         "-al",
@@ -232,8 +230,8 @@ def parse_arguments():
         "--text_color",
         type=str,
         nargs="?",
-        help="Define the text's color, should be either a single hex color or a range in the ?,? format.",
-        default='#282828'
+        help="Define the text's color, should be either a single hex color or a range in the ?,? format., Use rndl to color in color list, use rnd to random color" ,
+        default='#282828',
     )
     parser.add_argument(
         "-sw",
@@ -248,8 +246,8 @@ def parse_arguments():
         "--margins",
         type=margins,
         nargs="?",
-        help="Define the margins around the text when rendered. In pixels, (margin_top, margin_left, margin_bottom, margin_right)",
-        default=(5, 5, 5 , 5)
+        help="Define the margins around the text when rendered. In pixels",
+        default=(5, 5, 5, 5)
     )
     parser.add_argument(
         "-fi",
@@ -264,6 +262,14 @@ def parse_arguments():
         type=str,
         nargs="?",
         help="Define font to be used"
+    )
+    parser.add_argument(
+        "-rbs",
+        "--random_blur_and_skew",
+        type=bool,
+        nargs="?",
+        help="random_blur_and_skew",
+        default=False
     )
     
     return parser.parse_args()
@@ -291,6 +297,58 @@ def load_fonts(lang):
     else:
         return [os.path.join('fonts/latin', font) for font in os.listdir('fonts/latin')]
 
+colorList =[(255,0,0),
+           (0,255,0),
+           (0,0,255),
+           (255,255,0),
+           (0,255,255),
+           (255,0,255),
+           (255,255,255),
+           (0,0,0)]    
+
+# Random text color in list
+from colormap import rgb2hex
+def RandomTextColorInList(count: int):
+    colorListRGB = []
+    for i in range(count):
+        rnd = random.randint(0,len(colorList)-1)
+        color = colorList[rnd]
+        colorListRGB.append(color)
+    
+    # Convert to hex colors
+    colorListHex = []
+    for i,e in enumerate(colorListRGB):
+        hexColor = rgb2hex(e[0],e[1],e[2])
+        colorListHex.append(hexColor)
+        
+    return colorListHex
+
+# Random text color
+from colormap import rgb2hex
+def RandomTextColor(count: int):
+    colorListRGB = []
+    for i in range(count):
+        color = (random.randint(0,255),random.randint(0,255),random.randint(0,255),1)
+        colorListRGB.append(color)
+    
+    # Convert to hex colors
+    colorListHex = []
+    for i,e in enumerate(colorListRGB):
+        hexColor = rgb2hex(e[0],e[1],e[2])
+        colorListHex.append(hexColor)
+        
+    return colorListHex
+
+# Random background color in list
+def RandomBackgroundColorInList(count: int)-> list:
+    colorList = []
+    for i in range(count):
+        rnd = random.randint(0,len(colorList)-1)
+        color = colorList[rnd]
+        colorList.append(color)
+        
+    return colorList
+
 # Random background color
 def RandomBackgroundColor(count: int)-> list:
     colorList = []
@@ -300,12 +358,12 @@ def RandomBackgroundColor(count: int)-> list:
         
     return colorList
              
-
 # Create report .csv
-def CreateReport(dataframe:list):
-    df = pd.DataFrame(dataframe,columns=['File name','Font name','Size','Font color','Background','Preprocess'])
+def CreateReport(dataframe):
+    df = pd.DataFrame(dataframe,columns=['File name','Text','Font','Size','Font color','Background','Distorsion','Blur','Skew'])
     df.to_csv('out/Report.csv',index = False)
-    
+    print("Report.csv is written")
+
 def main():
     """
         Description: Main function
@@ -352,39 +410,88 @@ def main():
     else:
         strings = create_strings_from_dict(args.length, args.random, args.count, lang_dict)
 
-#     print(strings)
     string_count = len(strings)
     
-    # Color BG
-    ColorBG =  RandomBackgroundColor(args.count)
-
+    # Random BG color
+    colorBGList = []
+    if args.background == 4:
+        colorBGList =  RandomBackgroundColor(args.count)
+    elif args.background == 5:
+        newBackground = random.randint(0,4)
+        if newBackground == 4: 
+            args.background = 4
+            colorBGList =  RandomBackgroundColor(args.count)
+        else:
+            args.background = newBackground
+            for i in range(args.count):
+                colorBGList.append(random.randint(0,3))
+    else:
+        for i in range(args.count):
+            colorBGList.append(args.background)
+    
+    # Random text color
+    if args.text_color == 'rndl':
+        colorTextList =  RandomTextColorInList(args.count)
+    elif args.text_color == 'rnd':
+        colorTextList =  RandomTextColor(args.count)
+    else:
+        colorTextList = []
+        colorTextList.append(args.text_color)
+        
+    # Random font
+    fontList = []
+    for i in range(args.count):
+        fontList.append( fonts[random.randrange(0, len(fonts))])
+        
+    # Distorsion list
+    distorsionList = []
+    if args.distorsion == 3:
+        for i in range(args.count):
+            distorsionList.append(random.randint(0,2))
+    else:
+        for i in range(args.count):
+            distorsionList.append(args.distorsion)
+    
+    # Skew & Blur list
+    blurList = []
+    skewList = []
+    
+    if args.random_blur_and_skew == True:
+        for i in range(args.count):
+            blurList.append(random.choice([True, False]))
+            skewList.append(random.choice([True, False]))
+    else:
+        for i in range(args.count): 
+            blurList.append(args.random_blur)
+            blurList.append(args.random_skew)
+        
     p = Pool(args.thread_count)
     for _ in tqdm(p.imap_unordered(
         FakeTextDataGenerator.generate_from_tuple,
         zip(
             [i for i in range(0, string_count)],
             strings,
-            [fonts[random.randrange(0, len(fonts))] for _ in range(0, string_count)],
+            [e for e in fontList],
             [args.output_dir] * string_count,
             [args.format] * string_count,
             [args.extension] * string_count,
             [args.skew_angle] * string_count,
-            [args.random_skew] * string_count,
+            [e for e in skewList],
             [args.blur] * string_count,
-            [args.random_blur] * string_count,
-            [args.background] * string_count,
-            [args.distorsion] * string_count,
+            [e for e in blurList],
+            [e for e in colorBGList],
+            [e for e in distorsionList],
             [args.distorsion_orientation] * string_count,
             [args.handwritten] * string_count,
             [args.name_format] * string_count,
             [args.width] * string_count,
             [args.alignment] * string_count,
-            [args.text_color] * string_count,
+            [e for e in colorTextList] * string_count,
             [args.orientation] * string_count,
             [args.space_width] * string_count,
             [args.margins] * string_count,
             [args.fit] * string_count,
-            [e for e in ColorBG]
+            [e for e in colorBGList]
         )
     ), total=args.count):
         pass
@@ -399,8 +506,36 @@ def main():
                 print(strings[i])
                 
     elif args.name_format == 3:
+        from PIL import Image
         dataframe = []
-        for i in range(args.count)
+        for i in range(args.count):
+            im = Image.open(args.output_dir+str(i)+'.jpg')
+            fontName = fontList[i]
+            
+            
+            if colorBGList[i] == 0:
+                colorBGList[i] = "gaussian noise"
+            elif colorBGList[i] == 1:
+                colorBGList[i] = "plain white"
+            elif colorBGList[i] == 2:
+                colorBGList[i] = "quasicrystal"
+            elif colorBGList[i] == 3:
+                colorBGList[i] = "picture"
+            elif type(colorBGList[i]) == type((0,0,0,0)):
+                colorBGList[i] = "color background " + str(colorBGList[i]) 
+                
+            if distorsionList[i] == 0:
+                distorsionList[i] = "None (Default)"
+            elif distorsionList[i] == 1:
+                distorsionList[i] = "Sine wave"
+            elif distorsionList[i] == 2:
+                distorsionList[i] = "Cosine wave"
+            
+            tupleData = (i,strings[i],fontName[10:],im.size,colorTextList[i],colorBGList[i],distorsionList[i],blurList[i],skewList[i])
+            
+            dataframe.append(tupleData)
+            print(tupleData)
+            
         CreateReport(dataframe)
         
 

@@ -1,1 +1,11 @@
-File name,Font name,Size,Font color,Background,Preprocess
+File name,Text,Font,Size,Font color,Background,Distorsion,Blur,Skew
+0,ชั่วช้างปรบหู,Kanit-MediumItalic.ttf,"(689, 200)",#0000FF,picture,None (Default),False,False
+1,โปรตอน,Sarabun-Thin.ttf,"(502, 200)",#FF0000,gaussian noise,Cosine wave,False,False
+2,เม้ม,ChakraPetch-LightItalic.ttf,"(294, 200)",#FF0000,picture,None (Default),False,True
+3,ประสก,Kodchasan-LightItalic.ttf,"(577, 200)",#FFFF00,quasicrystal,None (Default),True,False
+4,ประหาส,Sarabun-BoldItalic.ttf,"(537, 200)",#0000FF,picture,Sine wave,False,True
+5,โสมนัส,ChakraPetch-BoldItalic.ttf,"(485, 200)",#00FF00,plain white,Sine wave,True,True
+6,ทรงหม้อตาล,KoHo-ExtraLight.ttf,"(779, 200)",#00FF00,gaussian noise,Cosine wave,False,True
+7,มั่งคั่ง,Sriracha-Regular.ttf,"(337, 200)",#FF0000,quasicrystal,None (Default),True,True
+8,ข้อพิพาท,Mali-SemiBold.ttf,"(738, 200)",#0000FF,quasicrystal,None (Default),True,False
+9,ลูกเสือ,Maitree-Bold.ttf,"(388, 200)",#FFFF00,plain white,None (Default),True,False

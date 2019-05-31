@@ -120,6 +120,11 @@ class FakeTextDataGenerator(object):
         final_image = background.filter(
             ImageFilter.GaussianBlur(
                 radius=(blur if not random_blur else random.randint(0, blur))
+                
+#                 if !random_blur 
+#                    radius = blur
+#                 else 
+#                    radius = random.randint(0, blur))
             )
         )
 
