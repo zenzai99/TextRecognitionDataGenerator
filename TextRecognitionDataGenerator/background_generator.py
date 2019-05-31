@@ -86,7 +86,7 @@ def picture(height, width):
     else:
         raise Exception('No images where found in the pictures folder!')
 
-def full_color(height, width,bg_color):
+def color(height, width,bg_color):
     """
         Create a plain color background
     """

@@ -230,7 +230,7 @@ def parse_arguments():
         "--text_color",
         type=str,
         nargs="?",
-        help="Define the text's color, should be either a single hex color or a range in the ?,? format., Use rndl to color in color list, use rnd to random color" ,
+        help="Define the text's color, should be either a single hex color or a range in the ?,? format., Use rnd: Random RGB 0 to 255, rndInList: random color in colorList " ,
         default='#282828',
     )
     parser.add_argument(
@@ -271,6 +271,14 @@ def parse_arguments():
         help="random_blur_and_skew",
         default=False
     )
+    parser.add_argument(
+        "-bcm",
+        "--background_color_mode",
+        type=str,
+        nargs="?",
+        help="random_background_color_mode use rnd: Random RGB 0 to 255, rndInList: random color in colorList ",
+        default="rnd"
+    )
     
     return parser.parse_args()
 
@@ -297,14 +305,14 @@ def load_fonts(lang):
     else:
         return [os.path.join('fonts/latin', font) for font in os.listdir('fonts/latin')]
 
-colorList =[(255,0,0),
-           (0,255,0),
-           (0,0,255),
-           (255,255,0),
-           (0,255,255),
-           (255,0,255),
-           (255,255,255),
-           (0,0,0)]    
+colorList =[(255,0,0,1),
+           (0,255,0,1),
+           (0,0,255,1),
+           (255,255,0,1),
+           (0,255,255,1),
+           (255,0,255,1),
+           (255,255,255,1),
+           (0,0,0,1)]    
 
 # Random text color in list
 from colormap import rgb2hex
@@ -414,29 +422,51 @@ def main():
     
     # Random BG color
     colorBGList = []
-    if args.background == 4:
-        colorBGList =  RandomBackgroundColor(args.count)
-    elif args.background == 5:
-        newBackground = random.randint(0,4)
-        if newBackground == 4: 
-            args.background = 4
-            colorBGList =  RandomBackgroundColor(args.count)
-        else:
-            args.background = newBackground
-            for i in range(args.count):
-                colorBGList.append(random.randint(0,3))
-    else:
+    
+    backgroundList = []
+    
+    if args.background == 0 or args.background == 1 or args.background == 2 or args.background == 3:
         for i in range(args.count):
             colorBGList.append(args.background)
+            backgroundList.append(args.background)
+    elif args.background == 4:
+        
+        for i in range(args.count):
+            if args.background_color_mode == "rndInList":
+                colorBGList =  RandomBackgroundColorInList(args.count)
+                backgroundList.append(4)
+            elif args.background_color_mode == "rnd":
+                colorBGList =  RandomBackgroundColor(args.count)
+                backgroundList.append(4)
+            
+    elif args.background == 5:
+        
+        for i in range(args.count):
+            args.background = random.randint(0,4)
+            
+            if args.background == 4:
+                args.background = 4
+                if args.background_color_mode == "rndInList":
+                    colorBGList.append(colorList[random.randint(0,len(colorList)-1)])
+                    backgroundList.append(4)
+                    
+                elif args.background_color_mode == "rnd":
+                    colorBGList.append((random.randint(0,255),random.randint(0,255),random.randint(0,255),1))
+                    backgroundList.append(4)
+            else:
+                rndBackground = random.randint(0,3)
+                colorBGList.append(rndBackground)
+                backgroundList.append(rndBackground)
     
     # Random text color
-    if args.text_color == 'rndl':
+    if args.text_color == 'rndInList':
         colorTextList =  RandomTextColorInList(args.count)
     elif args.text_color == 'rnd':
         colorTextList =  RandomTextColor(args.count)
     else:
         colorTextList = []
-        colorTextList.append(args.text_color)
+        for i in range(args.count):
+            colorTextList.append(args.text_color)
         
     # Random font
     fontList = []
@@ -479,7 +509,7 @@ def main():
             [e for e in skewList],
             [args.blur] * string_count,
             [e for e in blurList],
-            [e for e in colorBGList],
+            [e for e in backgroundList],
             [e for e in distorsionList],
             [args.distorsion_orientation] * string_count,
             [args.handwritten] * string_count,

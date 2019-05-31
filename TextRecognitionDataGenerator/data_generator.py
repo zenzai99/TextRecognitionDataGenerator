@@ -89,6 +89,7 @@ class FakeTextDataGenerator(object):
         #############################
         # Generate background image #
         #############################
+        
         if background_type == 0:
             background = background_generator.gaussian_noise(background_height, background_width)
         elif background_type == 1:
@@ -98,7 +99,7 @@ class FakeTextDataGenerator(object):
         elif background_type == 3:
             background = background_generator.picture(background_height, background_width)
         elif background_type == 4:
-            background = background_generator.full_color(background_height, background_width,bg_color)
+            background = background_generator.color(background_height, background_width,bg_color)
 
         #############################
         # Place text with alignment #
