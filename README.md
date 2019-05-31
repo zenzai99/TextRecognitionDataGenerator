@@ -152,3 +152,24 @@ If anything is missing, unclear, or simply not working, open an issue on the rep
 - Better background generation
 - Better handwritten text generation
 - More customization parameters (mostly regarding background)
+
+
+
+สิ่งที่เพิ่ม
+
+ -b 4 คือ ใช้โหมด Background สี
+ -b 5 คือ Random โหมด 0 ถึง 4 (0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4:Random color)
+ 
+ -bm rndInList คือ Random สีอักษรใน list //rnd: Random RGB 0 to 255, rndInList: random color in colorList 
+ -bm rnd คือ Random สีอักษร RGB (0 ถึง 255)
+ 
+ *เมื่อใช้ Background color ควรใช้ -bm
+ 
+ -tc rndInList คือ Random สีอักษรใน list //rnd: Random RGB 0 to 255, rndInList: random color in colorList 
+ -tc rnd คือ Random สีอักษร RGB (0 ถึง 255)
+ 
+ -na 3 คือ โหมดตั้งชื่อไฟล์เป็นเลข และเขียนไฟล์ Report.csv ให้แสดงรายละเอียดแต่ละภาพ
+ 
+ -d 3 คือ Random Distorsion 0 ถึง 3 (0: None (Default), 1: Sine wave, 2: Cosine wave)
+ 
+ -rbs Ture คือ Random random_blur และ random_skew
