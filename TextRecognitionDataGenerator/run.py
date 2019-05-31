@@ -279,6 +279,14 @@ def parse_arguments():
         help="random_background_color_mode use rnd: Random RGB 0 to 255, rndInList: random color in colorList ",
         default="rnd"
     )
+    parser.add_argument(
+        "-rfs",
+        "--random_font_size",
+        type=bool,
+        nargs="?",
+        help="random_font_size True: random font size in ratio list ",
+        default=False
+    )
     
     return parser.parse_args()
 
@@ -312,7 +320,9 @@ colorList =[(255,0,0,1),
            (0,255,255,1),
            (255,0,255,1),
            (255,255,255,1),
-           (0,0,0,1)]    
+           (0,0,0,1)]
+
+percentRatioList = [5,10,20,30,50,70,80,90,100]
 
 # Random text color in list
 from colormap import rgb2hex
@@ -368,7 +378,7 @@ def RandomBackgroundColor(count: int)-> list:
              
 # Create report .csv
 def CreateReport(dataframe):
-    df = pd.DataFrame(dataframe,columns=['File name','Text','Font','Size','Font color','Background','Distorsion','Blur','Skew'])
+    df = pd.DataFrame(dataframe,columns=['File name','Text','Font','Font size ratio','Font color','Background','Image size','Distorsion','Blur','Skew'])
     df.to_csv('out/Report.csv',index = False)
     print("Report.csv is written")
 
@@ -471,7 +481,7 @@ def main():
     # Random font
     fontList = []
     for i in range(args.count):
-        fontList.append( fonts[random.randrange(0, len(fonts))])
+        fontList.append( fonts[random.randrange(0, len(fonts)-1)])
         
     # Distorsion list
     distorsionList = []
@@ -485,7 +495,6 @@ def main():
     # Skew & Blur list
     blurList = []
     skewList = []
-    
     if args.random_blur_and_skew == True:
         for i in range(args.count):
             blurList.append(random.choice([True, False]))
@@ -494,7 +503,21 @@ def main():
         for i in range(args.count): 
             blurList.append(args.random_blur)
             blurList.append(args.random_skew)
-        
+            
+    # Font size List 
+    fontSizeList = []
+    ratioList = []
+    
+    for i in range(args.count):
+        if args.random_font_size == True:
+            ratio = percentRatioList[0] # random.randint(0,len(percentRatioList)-1)
+            fontSizeList.append(ratio)
+            ratioList.append(int(ratio))
+        elif args.random_font_size == False:
+            fontSizeList.append(int(args.format))
+            ratioList.append(int(args.format/args.format*100))
+    
+    
     p = Pool(args.thread_count)
     for _ in tqdm(p.imap_unordered(
         FakeTextDataGenerator.generate_from_tuple,
@@ -521,7 +544,8 @@ def main():
             [args.space_width] * string_count,
             [args.margins] * string_count,
             [args.fit] * string_count,
-            [e for e in colorBGList]
+            [e for e in colorBGList],
+            [e for e in fontSizeList]
         )
     ), total=args.count):
         pass
@@ -561,7 +585,7 @@ def main():
             elif distorsionList[i] == 2:
                 distorsionList[i] = "Cosine wave"
             
-            tupleData = (i,strings[i],fontName[10:],im.size,colorTextList[i],colorBGList[i],distorsionList[i],blurList[i],skewList[i])
+            tupleData = (i,strings[i],fontName[10:],str(ratioList[i])+"%",colorTextList[i],colorBGList[i],im.size,distorsionList[i],blurList[i],skewList[i])
             
             dataframe.append(tupleData)
             print(tupleData)

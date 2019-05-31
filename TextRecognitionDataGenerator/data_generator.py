@@ -22,7 +22,7 @@ class FakeTextDataGenerator(object):
         cls.generate(*t)
 
     @classmethod
-    def generate(cls, index, text, font, out_dir, size, extension, skewing_angle, random_skew, blur, random_blur, background_type, distorsion_type, distorsion_orientation, is_handwritten, name_format, width, alignment, text_color, orientation, space_width, margins, fit,bg_color):
+    def generate(cls, index, text, font, out_dir, size, extension, skewing_angle, random_skew, blur, random_blur, background_type, distorsion_type, distorsion_orientation, is_handwritten, name_format, width, alignment, text_color, orientation, space_width, margins, fit,bg_color,font_size):
         image = None
 
         margin_top, margin_left, margin_bottom, margin_right = margins
@@ -86,6 +86,13 @@ class FakeTextDataGenerator(object):
         else:
             raise ValueError("Invalid orientation")
             
+        h = (resized_img.size[0]/100)*font_size
+        w = (resized_img.size[1]/100)*font_size
+        
+        h = int(h)
+        w = int(w)
+        
+        resized_img = resized_img.resize((h,w))
         #############################
         # Generate background image #
         #############################
@@ -106,6 +113,8 @@ class FakeTextDataGenerator(object):
         #############################
 
         new_text_width, _ = resized_img.size
+        
+        print(alignment)
 
         if alignment == 0 or width == -1:
             background.paste(resized_img, (margin_left, margin_top), resized_img)

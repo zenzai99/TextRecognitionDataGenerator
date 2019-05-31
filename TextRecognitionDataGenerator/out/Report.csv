@@ -1,11 +1,11 @@
-File name,Text,Font,Size,Font color,Background,Distorsion,Blur,Skew
-0,เกียรติคุณ,K2D-Thin.ttf,"(508, 200)",#FF00FF,picture,Cosine wave,True,False
-1,อีเก้ง,RobotoCondensed-Light.ttf,"(211, 200)",#FF0000,gaussian noise,Sine wave,False,False
-2,ธงชาย,Taviraj-SemiBoldItalic.ttf,"(420, 200)",#000000,plain white,Cosine wave,True,True
-3,พิโยกพิเกน,Krub-Italic.ttf,"(753, 200)",#FFFF00,"color background (255, 0, 255, 1)",Cosine wave,False,False
-4,อโนดาต,Fahkwang-Medium.ttf,"(636, 200)",#000000,gaussian noise,Cosine wave,False,False
-5,ตืด,Sarabun-ThinItalic.ttf,"(192, 200)",#00FFFF,picture,Sine wave,False,True
-6,เปศล-,K2D-Medium.ttf,"(431, 200)",#FF00FF,quasicrystal,Cosine wave,True,False
-7,สะบัด,Trirong-ExtraLightItalic.ttf,"(319, 200)",#FFFF00,"color background (0, 255, 255, 1)",None (Default),True,True
-8,ระบมบาตร,Mitr-Light.ttf,"(632, 200)",#0000FF,quasicrystal,Sine wave,False,False
-9,เฮโรอีน,Kanit-ExtraBoldItalic.ttf,"(543, 200)",#00FFFF,"color background (255, 255, 255, 1)",None (Default),False,False
+File name,Text,Font,Font size ratio,Font color,Background,Image size,Distorsion,Blur,Skew
+0,ยั่วเย้า,KoHo-BoldItalic.ttf,5%,#FF0000,"color background (255, 255, 255, 1)","(490, 200)",None (Default),False,True
+1,ตันปัญญา,Taviraj-ExtraBold.ttf,5%,#FF00FF,quasicrystal,"(610, 200)",None (Default),True,True
+2,ลด,Fahkwang-Bold.ttf,5%,#000000,"color background (0, 0, 255, 1)","(272, 200)",None (Default),False,True
+3,โยคี,Kodchasan-Italic.ttf,5%,#00FF00,plain white,"(291, 200)",Cosine wave,True,True
+4,ความวัวไม่ทันหาย ความควายเข้ามาแทรก,Kanit-BlackItalic.ttf,5%,#000000,"color background (0, 0, 0, 1)","(2676, 200)",Cosine wave,False,True
+5,ทองใบ,Pridi-Light.ttf,5%,#FFFF00,gaussian noise,"(403, 200)",Cosine wave,False,True
+6,ท้องฉนวน,Krub-LightItalic.ttf,5%,#FFFF00,"color background (255, 0, 255, 1)","(702, 200)",Sine wave,True,True
+7,จุดเหี่ยวเฉา,Kanit-SemiBold.ttf,5%,#FF0000,plain white,"(595, 200)",Cosine wave,False,True
+8,ไมโครฟิล์ม,Pridi-Light.ttf,5%,#FFFFFF,gaussian noise,"(621, 200)",Sine wave,True,True
+9,ดื้อดัน,Kanit-SemiBold.ttf,5%,#00FFFF,quasicrystal,"(396, 200)",Sine wave,True,True
