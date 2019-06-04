@@ -322,7 +322,7 @@ colorList =[(255,0,0,1),
            (255,255,255,1),
            (0,0,0,1)]
 
-percentRatioList = [5,10,20,30,50,70,80,90,100]
+percentRatioList = [10,20,30,40,50,60,70,80,90,100]
 
 # Random text color in list
 from colormap import rgb2hex
@@ -510,7 +510,7 @@ def main():
     
     for i in range(args.count):
         if args.random_font_size == True:
-            ratio = percentRatioList[0] # random.randint(0,len(percentRatioList)-1)
+            ratio = percentRatioList[random.randint(0,len(percentRatioList)-1)] # random.randint(0,len(percentRatioList)-1)
             fontSizeList.append(ratio)
             ratioList.append(int(ratio))
         elif args.random_font_size == False:

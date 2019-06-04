@@ -1,11 +1,11 @@
 File name,Text,Font,Font size ratio,Font color,Background,Image size,Distorsion,Blur,Skew
-0,ยั่วเย้า,KoHo-BoldItalic.ttf,5%,#FF0000,"color background (255, 255, 255, 1)","(490, 200)",None (Default),False,True
-1,ตันปัญญา,Taviraj-ExtraBold.ttf,5%,#FF00FF,quasicrystal,"(610, 200)",None (Default),True,True
-2,ลด,Fahkwang-Bold.ttf,5%,#000000,"color background (0, 0, 255, 1)","(272, 200)",None (Default),False,True
-3,โยคี,Kodchasan-Italic.ttf,5%,#00FF00,plain white,"(291, 200)",Cosine wave,True,True
-4,ความวัวไม่ทันหาย ความควายเข้ามาแทรก,Kanit-BlackItalic.ttf,5%,#000000,"color background (0, 0, 0, 1)","(2676, 200)",Cosine wave,False,True
-5,ทองใบ,Pridi-Light.ttf,5%,#FFFF00,gaussian noise,"(403, 200)",Cosine wave,False,True
-6,ท้องฉนวน,Krub-LightItalic.ttf,5%,#FFFF00,"color background (255, 0, 255, 1)","(702, 200)",Sine wave,True,True
-7,จุดเหี่ยวเฉา,Kanit-SemiBold.ttf,5%,#FF0000,plain white,"(595, 200)",Cosine wave,False,True
-8,ไมโครฟิล์ม,Pridi-Light.ttf,5%,#FFFFFF,gaussian noise,"(621, 200)",Sine wave,True,True
-9,ดื้อดัน,Kanit-SemiBold.ttf,5%,#00FFFF,quasicrystal,"(396, 200)",Sine wave,True,True
+0,อนัญคติ นับประสาอะไร ฉ่า อนุราธา,Thasadith-Italic.ttf,70%,#FFFFFF,gaussian noise,"(1695, 200)",Sine wave,True,False
+1,ดาวเคราะห์ มาร- ผาง เตารีด,Niramit-SemiBoldItalic.ttf,10%,#FF00FF,"color background (0, 0, 255, 1)","(2056, 200)",Cosine wave,True,True
+2,แจง ขูดเลือด ไห ตะแบง,Taviraj-LightItalic.ttf,20%,#000000,quasicrystal,"(1112, 200)",Sine wave,True,True
+3,ต่ออายุ สัมปรายิกภพ เดินโพย ผ่อนส่ง,Thasadith-Regular.ttf,80%,#0000FF,plain white,"(1845, 200)",Sine wave,True,True
+4,ไพล แพ้เปรียบ ดิสโพรเซียม คชสาร,KoHo-Bold.ttf,60%,#00FFFF,quasicrystal,"(2912, 200)",None (Default),True,False
+5,ฟาน เท็จจริง กันได ดูดำดูดี,Sarabun-Bold.ttf,50%,#FFFF00,quasicrystal,"(1448, 200)",Cosine wave,False,False
+6,ศุกร์ กระซี้กระซ้อ ฟื้นองค์ กี่เพ้า,Thasadith-Italic.ttf,40%,#000000,plain white,"(1496, 200)",Sine wave,False,False
+7,เผดียง บุพพัณชาติ ปูนขาว ก่นแต่,Athiti-SemiBold.ttf,50%,#FF0000,plain white,"(1854, 200)",None (Default),False,True
+8,เตินเต่อ ผงขาว ทันควัน ลิ้นงูเห่า,BaiJamjuree-Medium.ttf,100%,#000000,picture,"(1997, 200)",None (Default),True,True
+9,คนละ พัทธสีมา ระบาญ ขั้วแม่เหล็กโลก,KoHo-MediumItalic.ttf,40%,#000000,gaussian noise,"(2296, 200)",Sine wave,True,False

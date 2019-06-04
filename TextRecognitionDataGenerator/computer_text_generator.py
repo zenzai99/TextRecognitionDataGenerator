@@ -13,6 +13,10 @@ def generate(text, font, text_color, font_size, orientation, space_width, fit):
 def _generate_horizontal_text(text, font, text_color, font_size, space_width, fit):
     image_font = ImageFont.truetype(font=font, size=font_size)
     words = text.split(' ')
+    
+    for i,e in enumerate(words):
+        words[i] = e + " "
+        
     space_width = image_font.getsize(' ')[0] * space_width
 
     words_width = [image_font.getsize(w)[0] for w in words]
@@ -34,8 +38,12 @@ def _generate_horizontal_text(text, font, text_color, font_size, space_width, fi
 
     for i, w in enumerate(words):
         txt_draw.text((sum(words_width[0:i]) + i * int(space_width), 0), w, fill=fill, font=image_font)
-
+                  
     if fit:
+#         print("txt_img.getbbox()",txt_img.getbbox())
+#         newMargin =  txt_img.getbbox()
+#         newMargin = ((newMargin[0]/100)*90,newMargin[1],(newMargin[2]/100)*90,newMargin[3])
+#         return txt_img.crop(newMargin)
         return txt_img.crop(txt_img.getbbox())
     else:
         return txt_img

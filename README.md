@@ -172,4 +172,4 @@ If anything is missing, unclear, or simply not working, open an issue on the rep
  
  -d 3 คือ Random Distorsion 0 ถึง 3 (0: None (Default), 1: Sine wave, 2: Cosine wave)
  
- -rbs Ture คือ Random random_blur และ random_skew
+ -rbs True คือ Random random_blur และ random_skew
