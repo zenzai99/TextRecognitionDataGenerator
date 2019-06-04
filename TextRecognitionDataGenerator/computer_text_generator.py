@@ -37,7 +37,7 @@ def _generate_horizontal_text(text, font, text_color, font_size, space_width, fi
     )
 
     for i, w in enumerate(words):
-        txt_draw.text((sum(words_width[0:i]) + i * int(space_width), 0), w, fill=fill, font=image_font)
+        txt_draw.text((sum(words_width[0:i]) + i * int(space_width), 0), w, fill=fill, font=image_font,align="center",language="th")
                   
     if fit:
 #         print("txt_img.getbbox()",txt_img.getbbox())

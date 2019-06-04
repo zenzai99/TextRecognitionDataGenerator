@@ -1,11 +1,11 @@
 File name,Text,Font,Font size ratio,Font color,Background,Image size,Distorsion,Blur,Skew
-0,อนัญคติ นับประสาอะไร ฉ่า อนุราธา,Thasadith-Italic.ttf,70%,#FFFFFF,gaussian noise,"(1695, 200)",Sine wave,True,False
-1,ดาวเคราะห์ มาร- ผาง เตารีด,Niramit-SemiBoldItalic.ttf,10%,#FF00FF,"color background (0, 0, 255, 1)","(2056, 200)",Cosine wave,True,True
-2,แจง ขูดเลือด ไห ตะแบง,Taviraj-LightItalic.ttf,20%,#000000,quasicrystal,"(1112, 200)",Sine wave,True,True
-3,ต่ออายุ สัมปรายิกภพ เดินโพย ผ่อนส่ง,Thasadith-Regular.ttf,80%,#0000FF,plain white,"(1845, 200)",Sine wave,True,True
-4,ไพล แพ้เปรียบ ดิสโพรเซียม คชสาร,KoHo-Bold.ttf,60%,#00FFFF,quasicrystal,"(2912, 200)",None (Default),True,False
-5,ฟาน เท็จจริง กันได ดูดำดูดี,Sarabun-Bold.ttf,50%,#FFFF00,quasicrystal,"(1448, 200)",Cosine wave,False,False
-6,ศุกร์ กระซี้กระซ้อ ฟื้นองค์ กี่เพ้า,Thasadith-Italic.ttf,40%,#000000,plain white,"(1496, 200)",Sine wave,False,False
-7,เผดียง บุพพัณชาติ ปูนขาว ก่นแต่,Athiti-SemiBold.ttf,50%,#FF0000,plain white,"(1854, 200)",None (Default),False,True
-8,เตินเต่อ ผงขาว ทันควัน ลิ้นงูเห่า,BaiJamjuree-Medium.ttf,100%,#000000,picture,"(1997, 200)",None (Default),True,True
-9,คนละ พัทธสีมา ระบาญ ขั้วแม่เหล็กโลก,KoHo-MediumItalic.ttf,40%,#000000,gaussian noise,"(2296, 200)",Sine wave,True,False
+0,กระดอม อัยกี บรรทม ธนาคารเลือด,K2D-LightItalic.ttf,50%,#00FFFF,picture,"(2456, 200)",Sine wave,False,False
+1,ธนาคาร หน้าอัด มะยงชิด ไม้เอก,KoHo-Light.ttf,40%,#00FF00,gaussian noise,"(2465, 200)",None (Default),True,True
+2,ประหวั่น โทศก เต่าบ้า ออกโขน,BaiJamjuree-BoldItalic.ttf,40%,#000000,picture,"(2295, 200)",Sine wave,True,True
+3,ชมพูทวีป น้ำประสานทอง เฉาะปล่อง ชลธาร,Niramit-Regular.ttf,50%,#FF0000,quasicrystal,"(2630, 200)",None (Default),True,True
+4,ตีนเทียน อำนาถ มะกอกบ้าน กรับขยับ,Kanit-BoldItalic.ttf,40%,#FFFF00,plain white,"(2916, 200)",None (Default),False,False
+5,ออกหน้าออกตา ฝากตัว ตะโหงก ตามะแน,Maitree-Light.ttf,70%,#FFFFFF,gaussian noise,"(2597, 200)",Sine wave,True,True
+6,ขอฉาย ฟุ้งซ่าน กองทุนรวม ไพรบูลย์,Sarabun-Light.ttf,100%,#FFFF00,quasicrystal,"(1873, 200)",Cosine wave,True,False
+7,โผงเผง ได้ช่อง ภูมิภุช หมอยา,ChakraPetch-BoldItalic.ttf,10%,#FF0000,picture,"(1859, 200)",None (Default),False,False
+8,ท้องที่ ลูกรัง กษัยเลือด งุนงง,Krub-BoldItalic.ttf,80%,#0000FF,gaussian noise,"(1893, 200)",None (Default),True,False
+9,พับเพียบ เร่งร่าย เกรงใจ สุตะ,K2D-LightItalic.ttf,40%,#FF00FF,picture,"(1761, 200)",None (Default),False,True
