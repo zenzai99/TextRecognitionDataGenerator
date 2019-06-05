@@ -1,11 +1,11 @@
 File name,Text,Font,Font size ratio,Font color,Background,Image size,Distorsion,Blur,Skew
-0,กระดอม อัยกี บรรทม ธนาคารเลือด,K2D-LightItalic.ttf,50%,#00FFFF,picture,"(2456, 200)",Sine wave,False,False
-1,ธนาคาร หน้าอัด มะยงชิด ไม้เอก,KoHo-Light.ttf,40%,#00FF00,gaussian noise,"(2465, 200)",None (Default),True,True
-2,ประหวั่น โทศก เต่าบ้า ออกโขน,BaiJamjuree-BoldItalic.ttf,40%,#000000,picture,"(2295, 200)",Sine wave,True,True
-3,ชมพูทวีป น้ำประสานทอง เฉาะปล่อง ชลธาร,Niramit-Regular.ttf,50%,#FF0000,quasicrystal,"(2630, 200)",None (Default),True,True
-4,ตีนเทียน อำนาถ มะกอกบ้าน กรับขยับ,Kanit-BoldItalic.ttf,40%,#FFFF00,plain white,"(2916, 200)",None (Default),False,False
-5,ออกหน้าออกตา ฝากตัว ตะโหงก ตามะแน,Maitree-Light.ttf,70%,#FFFFFF,gaussian noise,"(2597, 200)",Sine wave,True,True
-6,ขอฉาย ฟุ้งซ่าน กองทุนรวม ไพรบูลย์,Sarabun-Light.ttf,100%,#FFFF00,quasicrystal,"(1873, 200)",Cosine wave,True,False
-7,โผงเผง ได้ช่อง ภูมิภุช หมอยา,ChakraPetch-BoldItalic.ttf,10%,#FF0000,picture,"(1859, 200)",None (Default),False,False
-8,ท้องที่ ลูกรัง กษัยเลือด งุนงง,Krub-BoldItalic.ttf,80%,#0000FF,gaussian noise,"(1893, 200)",None (Default),True,False
-9,พับเพียบ เร่งร่าย เกรงใจ สุตะ,K2D-LightItalic.ttf,40%,#FF00FF,picture,"(1761, 200)",None (Default),False,True
+0,ยั่วเย้า,KoHo-BoldItalic.ttf,5%,#FF0000,"color background (255, 255, 255, 1)","(490, 200)",None (Default),False,True
+1,ตันปัญญา,Taviraj-ExtraBold.ttf,5%,#FF00FF,quasicrystal,"(610, 200)",None (Default),True,True
+2,ลด,Fahkwang-Bold.ttf,5%,#000000,"color background (0, 0, 255, 1)","(272, 200)",None (Default),False,True
+3,โยคี,Kodchasan-Italic.ttf,5%,#00FF00,plain white,"(291, 200)",Cosine wave,True,True
+4,ความวัวไม่ทันหาย ความควายเข้ามาแทรก,Kanit-BlackItalic.ttf,5%,#000000,"color background (0, 0, 0, 1)","(2676, 200)",Cosine wave,False,True
+5,ทองใบ,Pridi-Light.ttf,5%,#FFFF00,gaussian noise,"(403, 200)",Cosine wave,False,True
+6,ท้องฉนวน,Krub-LightItalic.ttf,5%,#FFFF00,"color background (255, 0, 255, 1)","(702, 200)",Sine wave,True,True
+7,จุดเหี่ยวเฉา,Kanit-SemiBold.ttf,5%,#FF0000,plain white,"(595, 200)",Cosine wave,False,True
+8,ไมโครฟิล์ม,Pridi-Light.ttf,5%,#FFFFFF,gaussian noise,"(621, 200)",Sine wave,True,True
+9,ดื้อดัน,Kanit-SemiBold.ttf,5%,#00FFFF,quasicrystal,"(396, 200)",Sine wave,True,True

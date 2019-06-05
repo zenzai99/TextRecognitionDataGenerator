@@ -1,6 +1,8 @@
 # TextRecognitionDataGenerator [![TravisCI](https://travis-ci.org/Belval/TextRecognitionDataGenerator.svg?branch=master)](https://travis-ci.org/Belval/TextRecognitionDataGenerator) [![codecov](https://codecov.io/gh/Belval/TextRecognitionDataGenerator/branch/master/graph/badge.svg)](https://codecov.io/gh/Belval/TextRecognitionDataGenerator) [![Documentation Status](https://readthedocs.org/projects/textrecognitiondatagenerator/badge/?version=latest)](https://textrecognitiondatagenerator.readthedocs.io/en/latest/?badge=latest)
 
-A synthetic data generator for text recognition
+A synthetic data generator for text recognition.
+
+A fork from https://github.com/Belval/TextRecognitionDataGenerator - with addtional Thai script support.
 
 ## What is it for?
 Generating text image samples to train an OCR software. Now supporting non-latin text! For a more thorough tutorial see [the official documentation](https://textrecognitiondatagenerator.readthedocs.io/en/latest/index.html).
@@ -19,7 +21,7 @@ BeautifulSoup
 tqdm
 ```
 
- You can simply use `pip install -r requirements.txt` too.
+You can simply use `pip install -r requirements.txt` too.
 
 ## New
 - Add `--font` to use only one font for all the generated images (Thank you @JulienCoutault!)
@@ -27,19 +29,24 @@ tqdm
 - Change the text orientation using the `-or` parameter
 - Change the space width using the `-sw` parameter
 - Specify text color range using `-tc '#000000,#FFFFFF'`, please note that the quotes are **necessary**
-- Explicit alignement when using `-al` with fixed width (0: Left, 1: Center, 2: Right)
+- Explicit alignment when using `-al` with fixed width (0: Left, 1: Center, 2: Right)
 - Add support for Simplified and Traditional Chinese
 
 ## How does it work?
+
+### Basic
+
 `python run.py -w 5 -f 64`
 
-You get 1000 randomly generated images with random text on them like:
+You get 1,000 randomly generated images with random text on them like:
 
 ![1](samples/1.jpg "1")
 ![2](samples/2.jpg "2")
 ![3](samples/3.jpg "3")
 ![4](samples/4.jpg "4")
 ![5](samples/5.jpg "5")
+
+### Text skewing
 
 What if you want random skewing? Add `-k` and `-rk` (`python run.py -w 5 -f 64 -k 5 -rk`)
 
@@ -49,12 +56,24 @@ What if you want random skewing? Add `-k` and `-rk` (`python run.py -w 5 -f 64 -
 ![9](samples/9.jpg "9")
 ![10](samples/10.jpg "10")
 
+### Text distortion
+
+You can also add distorsion to the generated text with `-d` and `-do`
+
+![23](samples/24.jpg "0")
+![24](samples/25.jpg "1")
+![25](samples/26.jpg "2")
+
+### Text blurring
+
 But scanned document usually aren't that clear are they? Add `-bl` and `-rbl` to get gaussian blur on the generated image with user-defined radius (here 0, 1, 2, 4):
 
 ![11](samples/11.jpg "0")
 ![12](samples/12.jpg "1")
 ![13](samples/13.jpg "2")
 ![14](samples/14.jpg "4")
+
+### Background
 
 Maybe you want another background? Add `-b` to define one of the three available backgrounds: gaussian noise (0), plain white (1), quasicrystal (2) or picture (3).
 
@@ -64,6 +83,8 @@ Maybe you want another background? Add `-b` to define one of the three available
 ![23](samples/23.jpg "3")
 
 When using picture background (3). A picture from the pictures/ folder will be randomly selected and the text will be written on it.
+
+### Handwritten text
 
 Or maybe you are working on an OCR for handwritten text? Add `-hw`! (Experimental)
 
@@ -77,17 +98,13 @@ It uses a Tensorflow model trained using [this excellent project](https://github
 
 **The project does not require TensorFlow to run if you aren't using this feature**
 
-You can also add distorsion to the generated text with `-d` and `-do`
-
-![23](samples/24.jpg "0")
-![24](samples/25.jpg "1")
-![25](samples/26.jpg "2")
+### Dictionary
 
 The text is chosen at random in a dictionary file (that can be found in the *dicts* folder) and drawn on a white background made with Gaussian noise. The resulting image is saved as [text]\_[index].jpg
 
 There are a lot of parameters that you can tune to get the results you want, therefore I recommand checking out `python run.py -h` for more informations.
 
-## How to create images with Chinese (both simplified and traditional) text
+## Create images with Chinese text
 
 It is simple! Just do `python run.py -l cn -c 1000 -w 5`!
 
@@ -103,7 +120,7 @@ Simplified:
 
 ![28](samples/28.jpg "1")
 
-## Can I add my own font?
+## Add fonts
 
 Yes, the script picks a font at random from the *fonts* directory.
 
@@ -153,23 +170,14 @@ If anything is missing, unclear, or simply not working, open an issue on the rep
 - Better handwritten text generation
 - More customization parameters (mostly regarding background)
 
+## More features
 
-
-สิ่งที่เพิ่ม
-
- -b 4 คือ ใช้โหมด Background สี
- -b 5 คือ Random โหมด 0 ถึง 4 (0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4:Random color)
- 
- -bm rndInList คือ Random สีอักษรใน list //rnd: Random RGB 0 to 255, rndInList: random color in colorList 
- -bm rnd คือ Random สีอักษร RGB (0 ถึง 255)
- 
- *เมื่อใช้ Background color ควรใช้ -bm
- 
- -tc rndInList คือ Random สีอักษรใน list //rnd: Random RGB 0 to 255, rndInList: random color in colorList 
- -tc rnd คือ Random สีอักษร RGB (0 ถึง 255)
- 
- -na 3 คือ โหมดตั้งชื่อไฟล์เป็นเลข และเขียนไฟล์ Report.csv ให้แสดงรายละเอียดแต่ละภาพ
- 
- -d 3 คือ Random Distorsion 0 ถึง 3 (0: None (Default), 1: Sine wave, 2: Cosine wave)
- 
- -rbs True คือ Random random_blur และ random_skew
+- -b 4 use color background ใช้พื้นหลังสี
+- -b 5 random (0-4) สุ่ม (0-4) (0: Gaussian Noise, 1: Plain white, 2: Quasicrystal, 3: Pictures, 4: Random color)
+- -bm rndInList random color in colorList สุ่มสีอักษรในรายการ //rnd: Random RGB 0 to 255, rndInList: 
+- -bm rnd สุ่มสีอักษร RGB (0 ถึง 255) *เมื่อใช้ Background color ควรใช้ -bm
+- -tc rndInList สุ่มสีอักษรใน list //rnd: Random RGB 0 to 255, rndInList: random color in colorList 
+- -tc rnd คือ Random สีอักษร RGB (0 ถึง 255)
+- -na 3 คือ โหมดตั้งชื่อไฟล์เป็นเลข และเขียนไฟล์ Report.csv ให้แสดงรายละเอียดแต่ละภาพ
+- -d 3 random distorsion (0-3) (0: None (Default), 1: Sine wave, 2: Cosine wave)
+- -rbs Ture สุ่ม random_blur และ random_skew
